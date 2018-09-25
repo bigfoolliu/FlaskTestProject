@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+<h1>图书管理 Index Page</h1>
+
+<hr>
+
+<form method="post" action="">
+
+    <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+    <label>作者: </label><input type="text" name="author"><br>
+    <label>书名: </label><input type="text" name="book"><br>
+    <input type="submit" value="添加书籍">
+</form>
+
+<hr>
+
+<!-- 闪现给用户的消息 -->
+{% for message in get_flashed_messages() %}
+    {{ message }}<br>
+{% endfor %}
+
+<hr>
+
+<h2>书籍详情:</h2>
+<!-- 首先遍历输出所有作者,在每一个作者里面遍历输出其所有的书籍 -->
+<ul>
+
+    {% for author in authors %}
+        <li>
+            <!--点击作者后面的删除链接,就跳转至另外的一个url,由另一个视图函数处理-->
+            {{ author.name }}<a href="/delete_author/{{ author.id }}">删除</a>
+            <ul>
+                <!--注意此处遍历的是作者的书籍,所以要与作者关联-->
+                {% for book in author.books %}
+                    <li>{{ book.name }}<a href="/delete_book/{{ book.id }}&{{ author_id }}">删除</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+
+</ul>
+</body>
+</html>
